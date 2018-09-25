@@ -34,7 +34,18 @@ void LexicalAnalyzer::split(string line, int lineNumber)
 void LexicalAnalyzer::analyze(bool verbose)
 {
   if(verbose) {
-	  cout << this->vLexemes.size();
-	  cout << " Lexical unities found : " << endl;
+  	cout << "[*] ";
+	cout << this->vLexemes.size();
+	cout << " Lexical unities found : " << endl;
   }
+    //cout << vLexemes[i]->keyword;
+	  // check validity and display lexem
+	  // TODO check Lexeme validity and populate lexeme vector
+  //}
 }
+
+int Lexeme::getLine() { return this->line; }
+int Lexeme::getPosition() { return this->position; }
+std::string Lexeme::getKeyword() { return this->keyword; }
+bool Lexeme::isCorrect() { return this->correct; }
+void Lexeme::setCorrect( bool correct) { this->correct = correct; }

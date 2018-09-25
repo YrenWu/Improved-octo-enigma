@@ -8,17 +8,21 @@ class Lexeme
 {
   private:
     bool correct;
-
-  public:
     int line;
     int position;
-    std::string type;
+    // std::string type;
     std::string keyword;
+
+  public:
+    void setCorrect(bool correct);
+    bool isCorrect();
+    int getLine();
+    int getPosition();
+    std::string getKeyword();
+
     Lexeme(std::string, int line, int position);
 
-    bool isCorrect();
-    void setCorrect();
-    void display();
+    // void display();
 };
 
 class LexicalAnalyzer
