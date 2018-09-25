@@ -1,3 +1,6 @@
+#include <iostream>
+#include <vector>
+
 #include "Compiler.h"
 
 using namespace std;
@@ -5,19 +8,21 @@ using namespace std;
 Compiler::Compiler(string filename) 
 {
   this->filename = filename;
+  LexicalAnalyzer lexical;
 }
 
 void Compiler::read() 
 {
   ifstream file(this->filename);
-  string line; 
-  if (file.is_open()) {
+  string line;
 
+  if (file.is_open()) {
+    int lineNumber = 1;
   	while (getline(file, line)) {
-  	  cout << line << endl;
-       
+      // Send a line to Lexical Analyzer
+      this->lexical.analyze(line, lineNumber);
+      lineNumber++;
       // TODO : grammar definition
-      // TODO : class LexicalAnalyzer + call to checkLexeme(line);
       // TODO : Syntaxic and semantic analysis and so on ...
   	}
   	file.close();
