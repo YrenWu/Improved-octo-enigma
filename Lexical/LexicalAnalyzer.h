@@ -6,13 +6,16 @@
 
 class Lexeme
 {
-  public:
-    int position;
+  private:
     bool correct;
+
+  public:
+    int line;
+    int position;
     std::string type;
     std::string keyword;
+    Lexeme(std::string, int line, int position);
 
-    Lexeme(std::string, int position);
     bool isCorrect();
     void setCorrect();
     void display();
@@ -21,14 +24,13 @@ class Lexeme
 class LexicalAnalyzer
 {
   private:
-    std::vector<std::string> split(std::string line);
+    bool error = false;
+    std::vector<Lexeme*> vLexemes;
 
   public:
-    bool error = false;
-    std::vector<Lexeme> vLexeme;
-
     // TODO : grammar
-    void analyze(std::string line, int lineNumber);
+    void analyze(bool verbose);
+    void split(std::string line, int lineNumber);
 
 	// check if each word is a correct lexical unity defined in LexicalUnities.h
 

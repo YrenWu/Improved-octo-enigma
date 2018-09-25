@@ -7,33 +7,34 @@
 
 using namespace std;
 
-Lexeme::Lexeme(string word, int position)
+Lexeme::Lexeme(string word, int line, int position)
 {
   this->keyword = word;
+  this->line = line;
   this->position = position;
 }
 
-vector<std::string> LexicalAnalyzer::split(string line)
-{
-  vector<std::string> vSplitted;
+void LexicalAnalyzer::split(string line, int lineNumber)
+{ 
   istringstream str(line);
+  int position = 1;
 
-  do{
+  do {
     string subs;
     str >> subs;
-    if(subs.compare(" ")) {
-      vSplitted.push_back(subs);
+
+    if(subs != " " && !subs.empty()) {
+      auto lex = new Lexeme(subs, lineNumber, position);
+      this->vLexemes.push_back(lex);
+      position++;
     }
   } while (str);
-  return vSplitted;
 }
 
-void LexicalAnalyzer::analyze(std::string line, int lineNumber)
+void LexicalAnalyzer::analyze(bool verbose)
 {
-  vector<string> words;
-  words = this->split(line);
-  for(size_t i = 0; i < words.size(); ++i) {
-    // new Lexeme(words[i], lineNumber);
-    // TODO check Lexeme validity and populate lexeme vector
+  if(verbose) {
+	  cout << this->vLexemes.size();
+	  cout << " Lexical unities found : " << endl;
   }
 }

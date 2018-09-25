@@ -11,7 +11,7 @@ Compiler::Compiler(string filename)
   LexicalAnalyzer lexical;
 }
 
-void Compiler::read() 
+void Compiler::read(bool verbose) 
 {
   ifstream file(this->filename);
   string line;
@@ -19,12 +19,11 @@ void Compiler::read()
   if (file.is_open()) {
     int lineNumber = 1;
   	while (getline(file, line)) {
-      // Send a line to Lexical Analyzer
-      this->lexical.analyze(line, lineNumber);
+      // Send a line to Lexical Analyzer to build lexemes set
+      this->lexical.split(line, lineNumber);
       lineNumber++;
-      // TODO : grammar definition
-      // TODO : Syntaxic and semantic analysis and so on ...
   	}
+    this->lexical.analyze(verbose);
   	file.close();
   } else {
   	cout << "Error reading file. Please check the file name" << endl;

@@ -13,7 +13,7 @@ class Compiler {
 
   public:
   	Compiler(std::string filename);
-	void read();
+	void read(bool verbose);
 };
 
 #endif 

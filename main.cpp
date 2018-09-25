@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
   if (argc > 1) {
 	source = argv[1];
 	Compiler compiler(source);
-	compiler.read();
+	compiler.read(true);
   } else {
 	cout << "No file specified. Please enter an input file" << endl;
   }
