@@ -34,7 +34,7 @@ void LexicalAnalyzer::split(string line, int lineNumber)
   } while (str);
 }
 
-void LexicalAnalyzer::analyze(bool verbose)
+bool LexicalAnalyzer::analyze(bool verbose)
 {
   if(verbose) {
   	cout << "[*] ";
@@ -62,6 +62,8 @@ void LexicalAnalyzer::analyze(bool verbose)
       this->error = true;
     }
   }
+
+  return this->error;
 }
 
 void LexicalAnalyzer::validate(Lexeme &lexeme, Type type)

@@ -42,7 +42,7 @@ class LexicalAnalyzer
     void check(Lexeme &lexeme);
 
   public:
-    void analyze(bool verbose);
+    bool analyze(bool verbose);
     void split(std::string line, int lineNumber);
 };
 

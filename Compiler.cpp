@@ -23,7 +23,16 @@ void Compiler::read(bool verbose)
       this->lexical.split(line, lineNumber);
       lineNumber++;
   	}
-    this->lexical.analyze(verbose);
+
+    bool lexicalErrors = this->lexical.analyze(verbose);
+    if(lexicalErrors) {
+      cout << "[*] Lexical analysis failed" << endl;
+      return;
+    }
+
+    cout << "[*] Lexical analysis ended with success" << endl;
+    // Start syntaxic analysis
+
   	file.close();
   } else {
   	cout << "Error reading file. Please check the file name" << endl;
