@@ -49,10 +49,12 @@ void LexicalAnalyzer::analyze(bool verbose)
 
     // If verbose, display lexeme informations
     if(verbose) {
-      cout << lexeme->getType(); 
-      cout << lexeme->isCorrect();
-      cout << " Lexeme : " << endl;
-      // TODO
+      string info = lexeme->isCorrect() ? "" :  "ERROR ";
+
+      info += typeToString(lexeme->getType()) + " lexeme found : " + lexeme->getKeyword();
+      info += " on line " + to_string(lexeme->getLine());
+      info += " at position " + to_string(lexeme->getPosition());
+      cout << info << endl;
     }
 
     // Check if there is an error
@@ -60,8 +62,12 @@ void LexicalAnalyzer::analyze(bool verbose)
       this->error = true;
     }
   }
+}
 
-  // If no error send to syntax analysis (or return to compilation)
+void LexicalAnalyzer::validate(Lexeme &lexeme, Type type)
+{
+  lexeme.setCorrect(true);
+  lexeme.setType(type);
 }
 
 void LexicalAnalyzer::check(Lexeme &lexeme)
@@ -70,21 +76,42 @@ void LexicalAnalyzer::check(Lexeme &lexeme)
 
   for(auto key : sKeyword) {
     if(keyword == key) {
-      lexeme.setCorrect(true);
-      lexeme.setType(Type::Keyword);
+      this->validate(lexeme, Type::Keyword);
       break;
     }
   }
 
   for(auto op : sOperator) {
     if(keyword == op) {
-      lexeme.setCorrect(true);
-      lexeme.setType(Type::Operator);
+      this->validate(lexeme, Type::Operator);
       break;
     }
   }   
-  
-  // TODO : check numeric and indentificator
+
+  bool isNumeric = regex_search(keyword, rNumbers);
+  if (isNumeric && !lexeme.isCorrect()) {
+    this->validate(lexeme, Type::Numeric);
+  }
+
+  bool isIdentificator = regex_search(keyword, rIdentificators);
+  if (isIdentificator && !lexeme.isCorrect()) {
+    this->validate(lexeme, Type::Identificator);
+  }
+}
+
+std::string typeToString(Type type) {
+  switch(type) {
+    case 0:
+      return "Operator";
+    case 1:
+      return "Identificator";
+    case 2:
+      return "Keyword";
+    case 3:
+      return "Numeric";
+    default:
+      return "Unknown";
+  }
 }
 
 int Lexeme::getLine() { return this->line; }

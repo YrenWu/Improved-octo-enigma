@@ -28,11 +28,14 @@ std::set<std::string> sOperator = {
   { ">=" },
   { ">" },
   { "/" },
-  { "-" }
+  { "-" },
+  { "=" },
+  { "&&" },
+  { "||" }
 };
 
 /* Match numbers */
-std::regex const rNumbers { R"(^[-+]?\d+\.?\d+$)" };
+std::regex const rNumbers { R"(^[-+]?\d+\.?\d*$)" };
 
 /* Match alphanumeric strings */
 std::regex const rIdentificators { R"(\w+)" };

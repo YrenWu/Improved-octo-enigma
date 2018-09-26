@@ -8,6 +8,8 @@ enum Type {
   Operator, Identificator, Keyword, Numeric, Unknown
 };
 
+std::string typeToString(Type type);
+
 class Lexeme
 {
   private:
@@ -28,8 +30,6 @@ class Lexeme
     std::string getKeyword();
 
     Lexeme(std::string, int line, int position);
-
-    // void display();
 };
 
 class LexicalAnalyzer
@@ -38,17 +38,12 @@ class LexicalAnalyzer
     bool error = false;
     std::vector<Lexeme*> vLexemes;
 
+    void validate(Lexeme &lexeme, Type type);
     void check(Lexeme &lexeme);
 
   public:
     void analyze(bool verbose);
     void split(std::string line, int lineNumber);
-    
-	// check if each word is a correct lexical unity defined in LexicalUnities.h
-
-	// for each line display information with line number on lexical untity found or error
-
-	// if there is no error relay to syntaxic analysis
 };
 
 #endif 
