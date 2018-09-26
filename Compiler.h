@@ -4,12 +4,15 @@
 #include <iostream>
 #include <fstream>
 #include "Lexical/LexicalAnalyzer.h"
+#include "Syntaxic/SyntaxicAnalyzer.h"
+#include "Semantic/SemanticAnalyzer.h"
 
 class Compiler {
-  std::string filename;	
-  LexicalAnalyzer lexical;
-  // SyntaxicAnalyzer
-  // SemanticAnalyzer
+  private:
+	std::string filename;
+	LexicalAnalyzer lexical;
+	SyntaxicAnalyzer syntaxic;
+    SemanticAnalyzer semantic;
 
   public:
   	Compiler(std::string filename);

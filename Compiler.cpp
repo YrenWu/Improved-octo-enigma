@@ -6,6 +6,7 @@ Compiler::Compiler(string filename)
 {
   this->filename = filename;
   LexicalAnalyzer lexical;
+  SyntaxicAnalyzer syntaxic;
 }
 
 void Compiler::read(bool verbose) 
