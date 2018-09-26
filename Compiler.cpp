@@ -7,7 +7,7 @@ Compiler::Compiler(string filename)
   this->filename = filename;
   LexicalAnalyzer lexical;
   SyntaxicAnalyzer syntaxic;
-  SemanticAnalyzer semantic;
+  // SemanticAnalyzer semantic;
 }
 
 void Compiler::read(bool verbose) 

@@ -44,7 +44,7 @@ bool LexicalAnalyzer::analyze(bool verbose)
 
     // If verbose, display lexeme informations
     if(verbose) {
-      string info = lexeme->isCorrect() ? "" :  "ERROR ";
+      string info = lexeme->isCorrect() ? "   " :  "   /!\\ ERROR ";
 
       info += typeToString(lexeme->getType()) + " lexeme found : " + lexeme->getKeyword();
       info += " on line " + to_string(lexeme->getLine());

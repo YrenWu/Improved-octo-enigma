@@ -12,7 +12,7 @@ class Compiler {
 	std::string filename;
 	LexicalAnalyzer lexical;
 	SyntaxicAnalyzer syntaxic;
-    SemanticAnalyzer semantic;
+    // SemanticAnalyzer semantic;
 
   public:
   	Compiler(std::string filename);
