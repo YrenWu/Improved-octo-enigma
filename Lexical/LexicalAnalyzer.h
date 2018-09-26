@@ -1,7 +1,7 @@
 #ifndef LEXICAL_ANALYZER_H
 #define LEXICAL_ANALYZER_H
 
-#include <fstream>
+#include <iostream>
 #include <vector>
 
 enum Type {

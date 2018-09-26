@@ -1,7 +1,6 @@
 #ifndef LEXICAL_UNITIES_H
 #define LEXICAL_UNITIES_H
 
-#include <iostream>
 #include <regex>
 #include <set>
 

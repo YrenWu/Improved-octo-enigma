@@ -1,0 +1,4 @@
+#ifndef SYNTAXIC_ANALYZER_H
+#define SYNTAXIC_ANALYZER_H
+
+#endif
