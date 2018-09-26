@@ -119,3 +119,5 @@ Type Lexeme::getType() { return this->type; }
 
 void Lexeme::setCorrect( bool correct) { this->correct = correct; }
 void Lexeme::setType(Type type) { this->type = type; }
+
+std::vector<Lexeme*> LexicalAnalyzer::getLexemes() { return this->vLexemes; }

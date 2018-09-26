@@ -6,6 +6,7 @@
 
 enum Type {
   Operator, Identificator, Keyword, Numeric, Unknown
+  // TODO : add delimiter type . ( ) , { } ; [ ]
 };
 
 std::string typeToString(Type type);
@@ -44,6 +45,7 @@ class LexicalAnalyzer
   public:
     bool analyze(bool verbose);
     void split(std::string line, int lineNumber);
+    std::vector<Lexeme*> getLexemes();
 };
 
 #endif 

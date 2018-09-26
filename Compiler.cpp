@@ -7,6 +7,7 @@ Compiler::Compiler(string filename)
   this->filename = filename;
   LexicalAnalyzer lexical;
   SyntaxicAnalyzer syntaxic;
+  SemanticAnalyzer semantic;
 }
 
 void Compiler::read(bool verbose) 
@@ -29,7 +30,12 @@ void Compiler::read(bool verbose)
     }
 
     cout << "[*] Lexical analysis ended with success" << endl;
+    vector<Lexeme*> vLexemes = this->lexical.getLexemes();
+
     // Start syntaxic analysis
+    bool syntaxicErrors = this->syntaxic.analyze(vLexemes);
+
+    // TODO
 
   	file.close();
   } else {
