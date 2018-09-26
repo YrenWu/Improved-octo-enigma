@@ -4,20 +4,27 @@
 #include <fstream>
 #include <vector>
 
+enum Type {
+  Operator, Identificator, Keyword, Numeric, Unknown
+};
+
 class Lexeme
 {
   private:
     bool correct;
     int line;
     int position;
-    // std::string type;
+    Type type;
     std::string keyword;
 
   public:
     void setCorrect(bool correct);
+    void setType(Type type);
+
     bool isCorrect();
     int getLine();
     int getPosition();
+    Type getType();
     std::string getKeyword();
 
     Lexeme(std::string, int line, int position);
@@ -31,11 +38,12 @@ class LexicalAnalyzer
     bool error = false;
     std::vector<Lexeme*> vLexemes;
 
+    void check(Lexeme &lexeme);
+
   public:
-    // TODO : grammar
     void analyze(bool verbose);
     void split(std::string line, int lineNumber);
-
+    
 	// check if each word is a correct lexical unity defined in LexicalUnities.h
 
 	// for each line display information with line number on lexical untity found or error
