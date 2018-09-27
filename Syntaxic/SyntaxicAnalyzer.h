@@ -5,11 +5,18 @@
 
 #include "../Lexical/LexicalAnalyzer.h"
 
+class Node
+{
+  private:
+  public:
+    bool haveChildren();
+};
+
 class SyntaxicAnalyzer
 {
   private:
 
-  public: 
+  public:
 	bool analyze(std::vector<Lexeme*> vLexemes);
 };
 

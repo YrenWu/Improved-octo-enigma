@@ -1,5 +1,5 @@
 #include "LexicalAnalyzer.h"
-#include "LexicalUnities.h"
+#include "Grammar/LexicalUnities.h"
 
 using namespace std;
 
