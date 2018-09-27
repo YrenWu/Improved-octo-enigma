@@ -4,17 +4,14 @@
 #include <vector>
 
 #include "../Lexical/LexicalAnalyzer.h"
-
-class Node
-{
-  private:
-  public:
-    bool haveChildren();
-};
+#include "Node/Node.h"
 
 class SyntaxicAnalyzer
 {
   private:
+  	Node* root; // first Node
+
+  	void buildTree(std::vector<Lexeme*> vLexemes);
 
   public:
 	bool analyze(std::vector<Lexeme*> vLexemes);

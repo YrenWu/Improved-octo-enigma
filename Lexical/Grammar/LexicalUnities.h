@@ -4,6 +4,8 @@
 #include <regex>
 #include <set>
 
+/* For now instructions block are on a single line, */
+
 std::set<std::string> sKeyword = {
   { "while" },
   { "if" },

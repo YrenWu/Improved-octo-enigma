@@ -5,7 +5,6 @@
 #include <fstream>
 
 #include "Lexical/LexicalAnalyzer.h"
-
 #include "Syntaxic/SyntaxicAnalyzer.h"
 #include "Semantic/SemanticAnalyzer.h"
 
