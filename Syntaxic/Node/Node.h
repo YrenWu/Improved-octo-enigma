@@ -1,12 +1,15 @@
 #ifndef NODE_H
 #define NODE_H
 
+#include "../../Lexical/LexicalAnalyzer.h"
+
 class Node
 {
   private:
   	Node* parent;
   	Node* children;
-  	Lexeme lexeme;
+  	Lexeme* lexeme;
+  	std::vector<Node*> vNodes;
 
   public:
   	Node(Lexeme lexeme);
@@ -16,8 +19,7 @@ class Node
 
     Node* getChildrenNode();
     Node* getParentNode();
-
-    // getLexeme;
+    Lexeme getLexeme();
 };
 
 #endif
