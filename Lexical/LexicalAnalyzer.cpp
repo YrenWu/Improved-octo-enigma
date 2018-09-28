@@ -85,18 +85,13 @@ void LexicalAnalyzer::check(Lexeme &lexeme)
     }
   }   
 
-  bool isNumeric = regex_search(keyword, rNumbers);
-  if (isNumeric && !lexeme.isCorrect()) {
-    this->validate(lexeme, Type::Numeric);
-  }
-
-  bool isIdentificator = regex_search(keyword, rIdentificators);
-  if (isIdentificator && !lexeme.isCorrect()) {
-    this->validate(lexeme, Type::Identificator);
-  }
+  this->checkRegexp(&lexeme, rDelimiters, Type::Delimiter);
+  this->checkRegexp(&lexeme, rNumbers, Type::Numeric);
+  this->checkRegexp(&lexeme, rIdentificators, Type::Identificator);
 }
 
-std::string typeToString(Type type) {
+std::string typeToString(Type type)
+{
   switch(type) {
     case 0:
       return "Operator";
@@ -106,8 +101,19 @@ std::string typeToString(Type type) {
       return "Keyword";
     case 3:
       return "Numeric";
+    case 4:
+      return "Delimiter";
     default:
       return "Unknown";
+  }
+}
+
+void LexicalAnalyzer::checkRegexp(Lexeme* lexeme, regex const regExp, Type type)
+{
+  string keyword = lexeme->getKeyword();
+  bool match = regex_search(keyword, regExp);
+  if (match && !lexeme->isCorrect()) {
+    this->validate(*lexeme, type);
   }
 }
 

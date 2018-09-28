@@ -9,7 +9,7 @@
 class SyntaxicAnalyzer
 {
   private:
-  	// Node* root; // first Node
+  	Node* root; // first Node
   	std::vector<Node*> vNodes;
 
   	void buildTree(std::vector<Lexeme*> vLexemes);
@@ -18,6 +18,7 @@ class SyntaxicAnalyzer
 	bool analyze(std::vector<Lexeme*> vLexemes);
 
 	void setNodes(std::vector<Node*> vNodes);
+	void setRoot(Node* root);
 };
 
 #endif

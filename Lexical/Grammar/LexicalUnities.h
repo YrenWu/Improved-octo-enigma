@@ -35,6 +35,9 @@ std::set<std::string> sOperator = {
   { "||" }
 };
 
+/* Match delimiters TODO: { } ; [ ] */
+std::regex const rDelimiters { R"(^\(|\))" };
+
 /* Match numbers */
 std::regex const rNumbers { R"(^[-+]?\d+\.?\d*$)" };
 

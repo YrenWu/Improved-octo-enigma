@@ -6,8 +6,8 @@ Node::Node(Lexeme lexeme)
 {
    this->lexeme = &lexeme;
 }
-/*
-Node* Node::getChildrenNode()
+
+/* Node* Node::getChildrenNode()
 {
 
 }
@@ -15,20 +15,9 @@ Node* Node::getChildrenNode()
 Node* Node::getParentNode()
 {
 
-}
+}*/
 
-bool Node::isLeaf()
+Lexeme* Node::getLexeme()
 {
-  // Check if Lexem have a next lexem
+  return this->lexeme;
 }
-
-bool Node::isRoot()
-{
-  // Check if Lexem have a previous Lexem
-}
-
-Lexeme Node::getLexeme()
-{
-  //return this->lexeme
-}
-*/
