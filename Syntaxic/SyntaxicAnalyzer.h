@@ -4,21 +4,17 @@
 #include <vector>
 
 #include "../Lexical/LexicalAnalyzer.h"
-#include "Node/Node.h"
 
 class SyntaxicAnalyzer
 {
   private:
-  	Node* root; // first Node
-  	std::vector<Node*> vNodes;
-
-  	void buildTree(std::vector<Lexeme*> vLexemes);
+    bool canStart(Lexeme* lex, bool verbose);
+    bool canFinish(Lexeme* lex,  bool verbose);
+    bool canFollow(Lexeme* current, Lexeme* next,  bool verbose);
+    bool checkSyntax(std::vector<Lexeme*> vLine, bool verbose);
 
   public:
-	bool analyze(std::vector<Lexeme*> vLexemes);
-
-	void setNodes(std::vector<Node*> vNodes);
-	void setRoot(Node* root);
+	bool analyze(std::vector<Lexeme*> vLexemes, bool verbose);
 };
 
 #endif

@@ -46,7 +46,7 @@ bool LexicalAnalyzer::analyze(bool verbose)
     if(verbose) {
       string info = lexeme->isCorrect() ? "   " :  "   /!\\ ERROR ";
 
-      info += typeToString(lexeme->getType()) + " lexeme found : " + lexeme->getKeyword();
+      info += lexeme->typeToString(lexeme->getType()) + " lexeme found : " + lexeme->getKeyword();
       info += " on line " + to_string(lexeme->getLine());
       info += " at position " + to_string(lexeme->getPosition());
       cout << info << endl;
@@ -90,7 +90,16 @@ void LexicalAnalyzer::check(Lexeme &lexeme)
   this->checkRegexp(&lexeme, rIdentificators, Type::Identificator);
 }
 
-std::string typeToString(Type type)
+void LexicalAnalyzer::checkRegexp(Lexeme* lexeme, regex const regExp, Type type)
+{
+  string keyword = lexeme->getKeyword();
+  bool match = regex_search(keyword, regExp);
+  if (match && !lexeme->isCorrect()) {
+    this->validate(*lexeme, type);
+  }
+}
+
+std::string Lexeme::typeToString(Type type)
 {
   switch(type) {
     case 0:
@@ -105,15 +114,6 @@ std::string typeToString(Type type)
       return "Delimiter";
     default:
       return "Unknown";
-  }
-}
-
-void LexicalAnalyzer::checkRegexp(Lexeme* lexeme, regex const regExp, Type type)
-{
-  string keyword = lexeme->getKeyword();
-  bool match = regex_search(keyword, regExp);
-  if (match && !lexeme->isCorrect()) {
-    this->validate(*lexeme, type);
   }
 }
 

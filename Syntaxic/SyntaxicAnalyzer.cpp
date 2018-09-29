@@ -2,50 +2,91 @@
 
 using namespace std;
 
-bool SyntaxicAnalyzer::analyze(vector<Lexeme*> vLexemes)
+bool SyntaxicAnalyzer::canFollow(Lexeme* current, Lexeme* next,  bool verbose)
 {
-  // Build Nodes with Lexemes
-  this->buildTree(vLexemes);
- 
-  // 2 - Recursively build syntax tree
-	// Check if node have children 
-	// Yes : Continue 
-	// No : Stop
+	// TODO : check if it is a correct following term
+	// determinate type of operation (ex: affectation, artimetic expr, condition...)
 
-  // 3 - Check syntax through all nodes
+	return false;
+}
+
+bool SyntaxicAnalyzer::checkSyntax(vector<Lexeme*> vLine, bool verbose)
+{
+  // test if word can start a line
+  bool correct = this->canStart(vLine.front(), verbose);
+  if(!correct) return true;
+
+  // test if a word can end a line 
+  correct = this->canFinish(vLine.back(), verbose);
+  if(!correct) return true;
+
+  // iterate to check all lexemes
+  // correct = this->canFollow(current, next, verbose);
+  // if(!correct) return true;
+
   return false;
 }
 
-void SyntaxicAnalyzer::buildTree(vector<Lexeme*> vLexemes)
+bool SyntaxicAnalyzer::analyze(vector<Lexeme*> vLexemes, bool verbose)
 {
-  vector<Node*> vNodes;
-  // int current = 0;
+  int line = 1;
+  vector<Lexeme*> vLine; 
 
   for(auto lexeme : vLexemes) {
-  	// TODO : Check if node have a parent or a children and built it
-
-  	/*if(current != lexeme->getLine()){
-      current = lexeme->getLine();
-      // new line, first of the line 
-  	}*/
-
-  	auto node = new Node(*lexeme);
-  	vNodes.push_back(node);
-
-  	if(lexeme->getLine() == 1 && lexeme->getPosition() == 1) {
-  	  // First lexem of code, root element
-  	  this->setRoot(node);
-  	}
+    if(line != lexeme->getLine()) {
+      line++;
+      bool error = this->checkSyntax(vLine, verbose);
+      // return true if there is any error
+      if(error) return true;
+      vLine.clear();
+      vLine.push_back(lexeme);
+    } else {
+      vLine.push_back(lexeme);
+    }
   }
-  this->setNodes(vNodes);
+
+  return false;
 }
 
-void SyntaxicAnalyzer::setNodes(vector<Node*> vNodes)
+bool SyntaxicAnalyzer::canStart(Lexeme* lex, bool verbose)
 {
-  this->vNodes = vNodes;
+  /* check if first term can be a starting word */
+  string type = lex->typeToString(lex->getType());
+  string keyword = lex->getKeyword();
+  bool correct = true;
+
+  if(type == "Keyword" && keyword == "else") {
+  	if(verbose) cout << "   /!\\ ERROR : else is not a valid starting instruction" << endl;
+   	correct = false; 
+  } else if (type == "Operator") {
+  	if(verbose) cout << "   /!\\ ERROR : cannot start with operator" << endl;
+    correct = false;
+  } else {
+  	if(verbose) cout << "   " + keyword + " is a valid starting instruction" << endl;
+  }
+
+  return correct;
 }
 
-void SyntaxicAnalyzer::setRoot(Node* root)
+bool SyntaxicAnalyzer::canFinish(Lexeme* lex, bool verbose)
 {
-  this->root = root;
+  /* check if first term can be an ending word */
+  string type = lex->typeToString(lex->getType());
+  string keyword = lex->getKeyword();
+  bool correct = true;
+
+  if(type == "Keyword" && (keyword != "true" && keyword != "false")) {
+  	if(verbose) cout << "   /!\\ ERROR : this keyword is not a valid ending instruction" << endl;
+   	correct = false; 
+  } else if (type == "Operator") {
+  	if(verbose) cout << "   /!\\ ERROR : cannot end with operator" << endl;
+    correct = false;
+  } else if (keyword == "(") { // TODO: separate ending and starting delimiters
+  	if(verbose) cout << "   /!\\ ERROR : ending delimiter is missing" << endl;
+    correct = false;
+  } else {
+  	if(verbose) cout << "   " + keyword + " is a valid ending instruction" << endl;
+  }
+
+  return correct;
 }

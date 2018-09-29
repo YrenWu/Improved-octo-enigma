@@ -9,8 +9,6 @@ enum Type {
   Operator, Identificator, Keyword, Numeric, Delimiter, Unknown
 };
 
-std::string typeToString(Type type);
-
 class Lexeme
 {
   private:
@@ -31,6 +29,7 @@ class Lexeme
     std::string getKeyword();
 
     Lexeme(std::string, int line, int position);
+    std::string typeToString(Type type);
 };
 
 class LexicalAnalyzer
