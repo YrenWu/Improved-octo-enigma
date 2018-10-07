@@ -12,13 +12,20 @@
 class SyntaxicAnalyzer
 {
   private:
-    bool canStart(Lexeme* lex, bool verbose);
-    bool canFinish(Lexeme* lex,  bool verbose);
-    bool canFollow(std::vector<Lexeme*> vLine,  bool verbose);
-    bool checkSyntax(std::vector<Lexeme*> vLine, bool verbose);
+  	std::vector<Operation*> vOperation;
+  	bool verbose;
+
+    bool canStart(Lexeme* lex);
+    bool canFinish(Lexeme* lex);
+    bool canFollow(std::vector<Lexeme*> vLine);
+    bool checkSyntax(std::vector<Lexeme*> vLine);
+    bool isArithmetic();
+    bool checkDelimiters(OperationType validType);
 
   public:
 	bool analyze(std::vector<Lexeme*> vLexemes, bool verbose);
+	void setvOperation(std::vector<Operation*> vOperation);
+	void setVerbose(bool verbose);
 };
 
 #endif
