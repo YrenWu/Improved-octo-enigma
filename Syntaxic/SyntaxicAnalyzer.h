@@ -9,9 +9,11 @@
 #define openParenthesis "("
 #define closeParenthesis ")"
 
+
 class SyntaxicAnalyzer
 {
   private:
+
   	std::vector<Operation*> vOperation;
   	bool verbose;
 
