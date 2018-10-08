@@ -4,19 +4,19 @@
 #include <regex>
 #include <set>
 
-/* For now instructions block are on a single line, */
+/* 
+  For now instructions block are only on a single line, 
+  just parenthesis as delimiters for conditions.
+  */
 
 std::set<std::string> sKeyword = {
   { "while" },
   { "if" },
   { "else" },
-  { "while" },
   { "print" },
   { "scan" },
   { "true" },
-  { "false" },
-  { "or" },
-  { "and" }
+  { "false" }
 };
 
 std::set<std::string> sOperator = {

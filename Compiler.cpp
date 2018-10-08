@@ -30,9 +30,15 @@ void Compiler::read(bool verbose)
     vector<Lexeme*> vLexemes = this->lexical.getLexemes();
 
     // Start syntaxic analysis
-    bool syntaxicErrors = this->syntaxic.analyze(vLexemes);
+    bool syntaxicErrors = this->syntaxic.analyze(vLexemes, verbose);
+    if(syntaxicErrors) {
+      cout << "[*] Syntaxic analysis failed" << endl;
+      return;
+    }
 
-    // TODO
+    cout << "[*] Syntaxic analysis ended with success" << endl;
+
+    // TODO : semantic analysis
 
   	file.close();
   } else {
