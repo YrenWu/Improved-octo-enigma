@@ -19,7 +19,8 @@ class SyntaxicAnalyzer
     bool canFinish(Lexeme* lex);
     bool canFollow(std::vector<Lexeme*> vLine);
     bool checkSyntax(std::vector<Lexeme*> vLine);
-    bool isArithmetic();
+    bool hasArithmetic();
+    bool hasAffectation();
     bool checkDelimiters(OperationType validType);
 
   public:

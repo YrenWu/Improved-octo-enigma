@@ -3,13 +3,14 @@
 
 #include <iostream>
 #include <vector>
+#include <set>
 
 #include "../../Lexical/LexicalAnalyzer.h"
 
 #define OPERATOR_AFFECTATION "="
 
 enum OperationType {
-  Undefined, Loop, Branch, Instruction, Bool, Comparison, Arithmetic, Affectation, Logical, Incorrect
+  Undefined, Loop, Branch, Instruction, Bool, Comparison, Arithmetic, Affectation, Logical
 };
 
 class Operation
@@ -21,6 +22,16 @@ class Operation
 
   public:
   	Operation(Lexeme* lexeme);
+  	
+  	/* keywords */
+	std::set<std::string> oLoop = {{ "while" }};
+	std::set<std::string> oBranch = {{ "if" },{ "else" }};
+	std::set<std::string> oInstruction = {{ "print" },{ "scan" }};
+
+	/* operators */
+	std::set<std::string> oComparison = {{ "==" },{ "!=" },{ "<" },{ "<=" },{ ">=" },{ ">" }};
+	std::set<std::string> oLogic = {{ "&&" },{ "||" }};
+
     void setIdentified();
     void setType(OperationType type);
 
@@ -29,7 +40,6 @@ class Operation
     std::string getLexemeKeyword();
 
     OperationType getType();
-    // std::string getKeyword();
-    
-    // std::string typeToString(OperationType type);
 };
+
+#endif

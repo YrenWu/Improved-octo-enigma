@@ -23,16 +23,47 @@ bool SyntaxicAnalyzer::checkDelimiters(OperationType validType)
   return valid;
 }
 
-bool SyntaxicAnalyzer::isArithmetic()
+bool SyntaxicAnalyzer::hasAffectation()
 {
-  bool verbose = true;
   bool found = false;
 
   for (int i = 0; i < this->vOperation.size() - 2; ++i) {
-    int t1 = this->vOperation[i]->getType();
-    int t2 = this->vOperation[i+1]->getType();
-    int t3 = this->vOperation[i+2]->getType();
+   	string first = this->vOperation[i]->getLexemeType();
+  	string secondSymbol = this->vOperation[i+1]->getLexemeKeyword();
+  	int thirdType = this->vOperation[i+1]->getType();
+  	string third = this->vOperation[i+2]->getLexemeType();
+  	string thirdSymbol = this->vOperation[i+2]->getLexemeKeyword();
 
+  	bool correct = false;
+  	if(this->vOperation[i]->getType() == 0 || this->vOperation[i+1]->getType() == 0) {
+  	  correct = 
+  	    ((first == "Identificator") &&
+  	    (secondSymbol == OPERATOR_AFFECTATION) &&
+  	    (thirdType == 6  || third == "Identificator" || third == "Numeric" || 
+  	      thirdSymbol == "true" || thirdSymbol == "false"))
+  	    ;	
+  	}
+
+  	if(correct) {
+  	  found = true;
+  	  this->vOperation[i]->setType(OperationType::Affectation);
+  	  this->vOperation[i+1]->setType(OperationType::Affectation);
+  	  // if not already labelled as arithmetic operation
+  	  if(this->vOperation[i+2]->getType() == 0) 
+  	    this->vOperation[i+2]->setType(OperationType::Affectation);
+  	}
+  }
+
+  if(!found)
+  	return 1;
+  return this->hasAffectation();
+}
+
+bool SyntaxicAnalyzer::hasArithmetic()
+{
+  bool found = false;
+
+  for (int i = 0; i < this->vOperation.size() - 2; ++i) {
    	string first = this->vOperation[i]->getLexemeType();
    	string firstSymbol = this->vOperation[i]->getLexemeKeyword();
    	string second = this->vOperation[i+1]->getLexemeType();
@@ -58,23 +89,20 @@ bool SyntaxicAnalyzer::isArithmetic()
   	  this->vOperation[i]->setType(OperationType::Arithmetic);
   	  this->vOperation[i+1]->setType(OperationType::Arithmetic);
   	  this->vOperation[i+2]->setType(OperationType::Arithmetic);
-  	  if(verbose) {
+  	  /* if(verbose) {
   	    cout << "   Valid arithmetic operation found : " + 
   	      this->vOperation[i]->getLexemeKeyword() + " " +
   	      this->vOperation[i+1]->getLexemeKeyword() + " " +
   	      this->vOperation[i+2]->getLexemeKeyword() <<
   	    endl;
-  	  } 
+  	  } */
   	} 
   }
   
   if(!found)
   	return 1;
-  return this->isArithmetic();
+  return this->hasArithmetic();
 }
-
-// TODO : function do display valid entries with associated type.
-// if unknown type print error
 
 bool SyntaxicAnalyzer::canFollow(vector<Lexeme*> vLine)
 {
@@ -82,12 +110,34 @@ bool SyntaxicAnalyzer::canFollow(vector<Lexeme*> vLine)
   for(auto lexeme : vLine) {
   	vOperation.push_back(new Operation(lexeme));
   }
-  this->setvOperation(vOperation);
-  this->isArithmetic();
 
-  /* determinate type of operation, return type, if unknown type generate an error */
+  this->setvOperation(vOperation);
+  this->hasArithmetic();
+  this->hasAffectation();
+
   return false;
 }
+
+
+// TODO : function do display valid entries with associated type. 
+// Line by line, with entire operations
+// if unknown type print error
+/*
+    if(verbose) {
+  	    cout << "   Valid arithmetic operation found : " + 
+  	      vOperation[i]->getLexemeKeyword() + " " +
+  	      vOperation[i+1]->getLexemeKeyword() + " " +
+  	      vOperation[i+2]->getLexemeKeyword() <<
+  	    endl;
+  	  } 
+  	} 
+    else {
+ 	  cout << "   Invalid arithmetic operation found : " + 
+  	    vOperation[i]->getLexemeKeyword() + " " +
+        vOperation[i+1]->getLexemeKeyword() + " " +
+	    vOperation[i+2]->getLexemeKeyword() <<
+  	  endl;
+  	} */
 
 bool SyntaxicAnalyzer::checkSyntax(vector<Lexeme*> vLine)
 {
