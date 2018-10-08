@@ -3,10 +3,10 @@
 
 #include <iostream>
 #include <vector>
+#include <regex>
 
 enum Type {
-  Operator, Identificator, Keyword, Numeric, Unknown
-  // TODO : add delimiter type . ( ) , { } ; [ ]
+  Operator, Identificator, Keyword, Numeric, Delimiter, Unknown
 };
 
 std::string typeToString(Type type);
@@ -41,6 +41,7 @@ class LexicalAnalyzer
 
     void validate(Lexeme &lexeme, Type type);
     void check(Lexeme &lexeme);
+    void checkRegexp(Lexeme* lexeme, std::regex const regExp, Type type);
 
   public:
     bool analyze(bool verbose);

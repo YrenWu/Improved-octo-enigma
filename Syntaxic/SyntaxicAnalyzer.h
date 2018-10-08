@@ -8,8 +8,9 @@
 class SyntaxicAnalyzer
 {
   private:
+  	void buildTree(std::vector<Lexeme*> vLexemes);
 
-  public: 
+  public:
 	bool analyze(std::vector<Lexeme*> vLexemes);
 };
 
