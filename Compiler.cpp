@@ -5,9 +5,6 @@ using namespace std;
 Compiler::Compiler(string filename) 
 {
   this->filename = filename;
-  LexicalAnalyzer lexical;
-  SyntaxicAnalyzer syntaxic;
-  SemanticAnalyzer semantic;
 }
 
 void Compiler::read(bool verbose) 
