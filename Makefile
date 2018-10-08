@@ -6,7 +6,7 @@ CFLAGS = -g -Wall -std=c++1z
   
 EXECUTABLE = ConconPiler
 # files: 
-FILES = *.cpp Lexical/*.cpp Syntaxic/*.cpp Syntaxic/Node/*.cpp
+FILES = *.cpp Lexical/*.cpp Syntaxic/*.cpp 
 
 compile:
 	$(CC) $(FILES) $(CFLAGS) -o $(EXECUTABLE) 
